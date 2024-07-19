@@ -14,8 +14,11 @@ namespace HangFireApi.Infraestructure
                 return new MongoClient(database);
             });
             services.AddSingleton<EmpladoRepository>();
-            services.AddSingleton<TurnoService>();
             services.AddSingleton<ProgramacionRespository>();
+            services.AddScoped<TurnoService>();
+            services.AddScoped<ProgramacionService>();
+
+
             return services;
         }
     }

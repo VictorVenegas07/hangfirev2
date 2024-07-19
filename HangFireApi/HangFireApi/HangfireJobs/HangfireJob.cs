@@ -8,7 +8,7 @@ namespace HangFireApi.HangfireJobs
         public static void RegisterJobs()
         {
             // Registrar la tarea recurrente para verificar turnos cada minuto
-            RecurringJob.AddOrUpdate<TurnoService>(service => service.VerificarTurnosAsync(), Cron.Minutely);
+            //RecurringJob.AddOrUpdate<TurnoService>(service => service.VerificarTurnosAsync(), Cron.Minutely);
         }
     }
 }

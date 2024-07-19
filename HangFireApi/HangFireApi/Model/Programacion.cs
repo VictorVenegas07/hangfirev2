@@ -27,14 +27,17 @@ public class Programacion
 
 public partial class DaysAvailableRoute
 {
-    public DaysAvailableRoute(DayOfWeek day, string timeStart, string timeEnd)
+    public DaysAvailableRoute(DayOfWeek day, string timeStart, string timeEnd, bool isActive)
     {
         Day = day;
         TimeStart = TimeSpan.Parse(timeStart);
         TimeEnd = TimeSpan.Parse(timeEnd);
+        IsActive = isActive;
     }
 
     public DayOfWeek Day { get; set; }
     public TimeSpan TimeStart { get; set; }
     public TimeSpan TimeEnd { get; set; }
+    public string JobId { get; set; }
+    public bool IsActive { get; set; }
 }

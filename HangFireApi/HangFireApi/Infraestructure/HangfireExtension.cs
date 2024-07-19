@@ -56,7 +56,7 @@ namespace HangFireApi.Infraestructure
                             new BasicAuthAuthorizationUser
                             {
                                 Login = "admin",
-                                PasswordClear = "password" // Cambia esto en producción
+                                PasswordClear = "admin" // Cambia esto en producción
                             }
                         }
                     })

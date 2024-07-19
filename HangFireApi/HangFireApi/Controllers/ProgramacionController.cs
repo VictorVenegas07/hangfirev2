@@ -1,4 +1,5 @@
-﻿using HangFireApi.Model;
+﻿using Hangfire;
+using HangFireApi.Model;
 using HangFireApi.Request;
 using HangFireApi.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,12 @@ namespace HangFireApi.Controllers
     {
 
         private readonly ProgramacionRespository _mongoDBService;
+        private readonly ProgramacionService _programacionService;
 
-        public ProgramacionController(ProgramacionRespository mongoDBService)
+        public ProgramacionController(ProgramacionRespository mongoDBService, ProgramacionService programacionService)
         {
             _mongoDBService = mongoDBService;
+            _programacionService = programacionService;
         }
 
         [HttpPost]
@@ -26,6 +29,8 @@ namespace HangFireApi.Controllers
             {
                 var programacion = MapearProgramacion(empleado);
                 await _mongoDBService.InsertOneAsync(programacion);
+                _programacionService.Configure(programacion);
+                await _mongoDBService.UpdateEmpleadoAsync(programacion.Id, programacion);
 
                 return Ok(new { mensaje = "Programacion creado correctamente", empleado });
             }
@@ -36,13 +41,36 @@ namespace HangFireApi.Controllers
         }
         private Programacion MapearProgramacion(ProgramacionRequest programacion)
         {
-            var diasViables = programacion.DaysAvailableRoute.Select(d => new DaysAvailableRoute(d.Day, d.TimeStart, d.TimeEnd)).ToList();
-            return new Programacion(
-            programacion.Name,
-                programacion.DateStart,
-                programacion.DateEnd,
-                diasViables
-            );
+            var diasViables = programacion.DaysAvailableRoute
+                .Select(d => new DaysAvailableRoute(d.Day, d.TimeStart, d.TimeEnd, d.IsActive)).ToList();
+            return new Programacion(programacion.Name, programacion.DateStart, programacion.DateEnd, diasViables);
+        }
+
+        [HttpDelete("{jobId}")]
+        public IActionResult DeleteJob(string jobId)
+        {
+            RecurringJob.RemoveIfExists(jobId);
+            return Ok($"Job with ID {jobId} has been deleted.");
+        }
+
+
+        [HttpPut]
+        public async Task<ActionResult> CrearEmpleado([FromBody] ProgramacionRequest empleado, [FromQuery] string id)
+        {
+            try
+            {
+                var programacion = MapearProgramacion(empleado);
+                programacion.Id = id;
+                await _mongoDBService.UpdateEmpleadoAsync(id, programacion);
+                _programacionService.UpdateJobs(programacion);
+                await _mongoDBService.UpdateEmpleadoAsync(programacion.Id, programacion);
+
+                return Ok(new { mensaje = "Programacion creado correctamente", empleado });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { mensaje = "Error al crear la Programacion", error = ex.Message });
+            }
         }
     }
 }

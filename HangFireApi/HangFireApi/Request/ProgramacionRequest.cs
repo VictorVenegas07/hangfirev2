@@ -16,4 +16,6 @@ public partial class DaysAvailableRouteRequest
     public DayOfWeek Day { get; set; }
     public string TimeStart { get; set; }
     public string TimeEnd { get; set; }
+
+    public bool IsActive { get; set; }
 }
