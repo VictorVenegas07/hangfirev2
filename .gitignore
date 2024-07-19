@@ -1,0 +1,103 @@
+# .NET Core and Visual Studio related files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.nuget/
+*.dotnet/
+*.dll
+*.pdb
+*.exe
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+/obj/
+/bin/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+
+# Build directories
+[Bb]uild/
+
+# MSTest Test Results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# BenchmarkDotNet artifacts
+BenchmarkDotNet.Artifacts/
+
+# Roslyn cache directories
+\.vscode/
+.project/
+.vscode/
+*.swp
+.vscode/
+
+# StyleCop
+StyleCopReport.xml
+
+# GhostDoc
+[Gg]host[Dd]oc[Dd]ata/
+
+# Rider
+.idea/
+
+# Resharper
+_resharper*/
+
+# Visual Studio Code
+.vscode/
+
+# Test files
+*.testsettings
+*.runsettings
+*.vsmdi
+*.testhost
+*.trx
+
+# Patch, local, etc.
+/.nuget/
+/nupkg/
+/packages/
+*.dbmdl
+*.dbproj
+*.ipch/
+*.iobj/
+*.log
+*.opendb
+*.orig
+*.pch
+*.pidb
+*.scc
+*.tlb
+*.tlh
+*.tmp
+*.userprefs
+*.vbw
+*.VC.db
+*.VC.opendb
+*.VC.VC.opendb
+*.vsmdi
+*.vsp
+*.vspscc
+*.vssscc
+*.vsz
+*.vtg
+*.vup
+*.vsmacros
+*.vsps
+*.vssscc
+*.vstemplate
+*.vssscc
+*.vssscc
+*.vsscc
+*.cache
+*.nupkg
+*.docstates
+*.dotCover
+*TestOutput
+*.sonarqube
